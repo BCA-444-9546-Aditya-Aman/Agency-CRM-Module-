@@ -26,6 +26,8 @@ export default function Team() {
 
   const [teamMembers, setTeamMembers] = useState([]);
 
+  const [filterRole, setFilterRole] = useState("All");
+
   useEffect(() => {
 
     const q = query(
@@ -53,39 +55,54 @@ export default function Team() {
     setShowDetailsModal(true);
   }
 
+  const filteredMembers = teamMembers.filter(member => {
+    if (filterRole === "All") return true;
+    return member.role === filterRole;
+  });
+
   return (
 
     <DashboardLayout>
 
-      <div className="d-flex justify-content-between align-items-center mb-4">
+      <div className="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 pb-3 border-bottom">
 
-        <div>
+        <div className="mb-3 mb-md-0">
 
-          <h2 className="mb-1">
+          <h2 className="mb-1 fw-bolder text-dark" style={{ letterSpacing: '-0.5px' }}>
             Team Management
           </h2>
 
-          <p className="text-muted">
+          <p className="text-secondary mb-0 fw-medium">
             Manage admins and team members
           </p>
 
         </div>
 
-        <button
-          className="btn btn-primary"
-          onClick={() => setShowModal(true)}
-        >
-
-          <i className="bi bi-plus-lg me-2"></i>
-
-          Add Member
-
-        </button>
+        <div className="d-flex gap-3">
+          <select 
+            className="form-select shadow-sm border-secondary-subtle fw-medium" 
+            style={{ width: '160px', cursor: 'pointer', backgroundColor: '#f8fafc' }}
+            value={filterRole}
+            onChange={(e) => setFilterRole(e.target.value)}
+          >
+            <option value="All">All Roles</option>
+            <option value="superadmin">Super Admin</option>
+            <option value="admin">Admin</option>
+            <option value="sales">Sales</option>
+            <option value="hr">HR</option>
+          </select>
+          <button
+            className="btn btn-primary shadow-sm d-flex align-items-center px-4 rounded-3 fw-semibold"
+            onClick={() => setShowModal(true)}
+          >
+            <i className="bi bi-plus-lg me-2"></i> Add Member
+          </button>
+        </div>
 
       </div>
 
       <TeamTable
-        teamMembers={teamMembers}
+        teamMembers={filteredMembers}
         onMemberClick={handleMemberClick}
       />
 
