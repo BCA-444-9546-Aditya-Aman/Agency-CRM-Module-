@@ -7,6 +7,9 @@ import ClientLeads from "@/pages/ClientLeads";
 import JobApplications from "@/pages/JobApplications";
 import Tasks from "@/pages/Tasks";
 import Team from "@/pages/Team";
+import TeamMemberDetails from "@/pages/TeamMemberDetails";
+import TeamMemberRecords from "@/pages/TeamMemberRecords";
+import Payments from "@/pages/Payments";
 
 import ProtectedRoute from "@/routes/ProtectedRoute";
 
@@ -76,6 +79,33 @@ export default function App() {
           element={
             <ProtectedRoute>
               <Team />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/team/:id"
+          element={
+            <ProtectedRoute>
+              <TeamMemberDetails />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/team/:id/records"
+          element={
+            <ProtectedRoute>
+              <TeamMemberRecords />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* Payments */}
+
+        <Route
+          path="/payments"
+          element={
+            <ProtectedRoute>
+              <Payments />
             </ProtectedRoute>
           }
         />

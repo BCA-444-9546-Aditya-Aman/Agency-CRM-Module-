@@ -127,6 +127,19 @@ export default function Sidebar() {
               </Link>
             </li>
           )}
+
+          {/* Payments */}
+          {(userData?.role === "superadmin" || userData?.role === "admin") && (
+            <li className="nav-item">
+              <Link
+                to="/payments"
+                className={`sidebar-link ${isActive("/payments") ? "active" : ""}`}
+              >
+                <i className="bi bi-wallet2 sidebar-icon"></i>
+                <span>Payments</span>
+              </Link>
+            </li>
+          )}
         </ul>
 
         {/* Bottom User Section */}

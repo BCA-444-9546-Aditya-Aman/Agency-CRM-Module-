@@ -1,4 +1,7 @@
-export default function TeamTable({ teamMembers = [], onMemberClick }) {
+import { useNavigate } from "react-router-dom";
+
+export default function TeamTable({ teamMembers = [] }) {
+  const navigate = useNavigate();
   const getRoleBadge = (role) => {
     switch(role) {
       case "superadmin":
@@ -40,7 +43,7 @@ export default function TeamTable({ teamMembers = [], onMemberClick }) {
                   <tr
                     key={member.id}
                     style={{ cursor: "pointer", transition: "background-color 0.2s" }}
-                    onClick={() => onMemberClick(member)}
+                    onClick={() => navigate(`/team/${member.id}`)}
                   >
                     <td className="px-4 py-3 fw-medium text-dark">{member.name}</td>
                     <td className="px-4 py-3 text-secondary">{member.email}</td>
